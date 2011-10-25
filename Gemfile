@@ -21,6 +21,8 @@ gem 'awesome_nested_set'
 ## TODO: cannot on Rails 3.1
 # gem 'verification'
 
+gem 'net-ldap'
+
 # gem 'ruby-prof', :git => 'http://github.com/wycats/ruby-prof.git'
 gem 'ruby-prof'
 # gem 'jquery-rails'
