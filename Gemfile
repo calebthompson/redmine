@@ -46,7 +46,7 @@ group :development do
   # gem 'autotest-fsevent'
   # gem 'mynyml-redgreen'
   # gem 'rails-dev-tweaks', '~> 0.5.1'
-  gem 'rails-dev-tweaks'
+  # gem 'rails-dev-tweaks'
 end
 
 group :production do
