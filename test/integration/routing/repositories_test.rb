@@ -21,14 +21,14 @@ class RoutingRepositoriesTest < ActionController::IntegrationTest
   def setup
     @path_hash  = repository_path_hash(%w[path to file.c])
     assert_equal "path/to/file.c", @path_hash[:path]
-    assert_equal %w[path to file.c], @path_hash[:param]
+    assert_equal "path/to/file.c", @path_hash[:param]
   end
 
   def test_repositories
     assert_routing(
         { :method => 'get',
           :path => "/projects/redmine/repository" },
-        { :controller => 'repositories', :action => 'show', :id => 'redmine' }
+        { :controller => 'repositories', :action => 'show_root', :id => 'redmine' }
       )
     ["get", "post"].each do |method|
       assert_routing(
@@ -67,7 +67,7 @@ class RoutingRepositoriesTest < ActionController::IntegrationTest
         { :method => 'get',
           :path => "/projects/redmine/repository/revisions/2457/show" },
         { :controller => 'repositories', :action => 'show', :id => 'redmine',
-          :path => empty_path_param, :rev => '2457' }
+          :rev => '2457' }
       )
     assert_routing(
         { :method => 'get',
@@ -79,7 +79,7 @@ class RoutingRepositoriesTest < ActionController::IntegrationTest
         { :method => 'get',
           :path => "/projects/redmine/repository/revisions/2457/changes" },
         { :controller => 'repositories', :action => 'changes', :id => 'redmine',
-          :path => empty_path_param, :rev => '2457' }
+          :rev => '2457' }
       )
     assert_routing(
         { :method => 'get',
@@ -169,7 +169,7 @@ private
   def repository_path_hash(arr)
     hs = {}
     hs[:path]  = arr.join("/")
-    hs[:param] = arr
+    hs[:param] = hs[:path]
     hs
   end
 end
