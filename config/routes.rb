@@ -85,14 +85,15 @@ Redmine::Application.routes.draw do |map|
     match '/my/order_blocks', :action => 'order_blocks', :via => :post
   end
 
-  map.connect 'projects/:id/members/new', :controller => 'members',
-              :action => 'new', :conditions => { :method => :post }
-  map.connect 'members/edit/:id', :controller => 'members',
-              :action => 'edit', :id => /\d+/, :conditions => { :method => :post }
-  map.connect 'members/destroy/:id', :controller => 'members',
-              :action => 'destroy', :id => /\d+/, :conditions => { :method => :post }
-  map.connect 'members/autocomplete_for_member/:id', :controller => 'members',
-              :action => 'autocomplete_for_member', :conditions => { :method => :post }
+  scope :controller => 'members' do
+    match '/projects/:id/members/new', :action => 'new', :via => :post
+    match '/members/edit/:id', :action => 'edit', :via => :post,
+          :constraints => { :id => /\d+/ }
+    match '/members/destroy/:id', :action => 'destroy', :via => :post,
+          :constraints => { :id => /\d+/ }
+    match '/members/autocomplete_for_member/:id', :action => 'autocomplete_for_member',
+          :via => :post
+  end
 
   map.with_options :controller => 'users' do |users|
     users.user_membership 'users/:id/memberships/:membership_id',
